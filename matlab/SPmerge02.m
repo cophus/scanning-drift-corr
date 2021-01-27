@@ -42,11 +42,11 @@ densityDist = mean([size(sMerge.scanLines,1) ...
     size(sMerge.scanLines,2)])/32; % density mask edge threshold 
 % To generate a moving average along the scanline origins
 % (make scanline steps more linear), use the settings below:
-originWindowAverage = 4;   % Window sigma in px for smoothing scanline origins.
+originWindowAverage = 8;   % Window sigma in px for smoothing scanline origins.
 %                           Set this value to zero to not use window avg.
 %                           This window is relative to linear steps.
 % originWindowAverage = size(sMerge.scanLines,1) / 128; 
-originInitialAverage = size(sMerge.scanLines,1) / 16;  % Window sigma in px for initial smoothing.
+originInitialAverage = size(sMerge.scanLines,1) / 8;  % Window sigma in px for initial smoothing.
 resetInitialAlignment = 0;   % Set this value to true to redo initial alignment.
 
 % Outputs:

@@ -17,11 +17,11 @@ function [sMerge] = SPmerge01linear(scanAngles,varargin)
 % images                - 2D image arrays, order in scanAngles, all same size.
 % sigmaLP = 32; %       - sigma value in pixels for initial alignment LP filter. 
 flagReportProgress = 1;  % Set to true to see updates on console.v =
-paddingScale = (1+1/2);%1.5;    % - padding amount for scaling of the output.
+paddingScale = 1.5;    % - padding amount for scaling of the output.
 sMerge.KDEsigma = 1/2; % - Smoothing between pixels for KDE.
 sMerge.edgeWidth = 1/128; % - size of edge blending relative to input images.
-% sMerge.linearSearch = linspace(-0.02,0.02,1+2*4);  % Initial linear search vector, relative to image size.
-sMerge.linearSearch = linspace(-0.08,0.08,1+2*4);  % Initial linear search vector, relative to image size.
+sMerge.linearSearch = linspace(-0.04,0.04,1+2*2);  % Initial linear search vector, relative to image size.
+% sMerge.linearSearch = linspace(-0.08,0.08,1+2*4);  % Initial linear search vector, relative to image size.
 
 % flagSkipInitialAlignment = 0;  % Set to true to skip initial phase correlation.
 % flagCrossCorrelation = 0+1;  % Set to true to use cross correlation.
@@ -86,8 +86,12 @@ sMerge.linearSearch = sMerge.linearSearch * size(sMerge.scanLines,1);
 sMerge.linearSearchScore1 = zeros(length(sMerge.linearSearch));
 inds = linspace(-0.5,0.5,size(sMerge.scanLines,1))';
 N = size(sMerge.scanLines);
-w2 = circshift(padarray(hanningLocal(N(1))*hanningLocal(N(2))',...
-    sMerge.imageSize-N(1:2),0,'post'),round((sMerge.imageSize-N(1:2))/2));
+% w2 = circshift(padarray(hanningLocal(N(1))*hanningLocal(N(2))',...
+%     sMerge.imageSize-N(1:2),0,'post'),round((sMerge.imageSize-N(1:2))/2));
+w2 = zeros(sMerge.imageSize(1:2));
+w2((1:N(1))+round((sMerge.imageSize(1) - N(1))/2),...
+    (1:N(2))+round((sMerge.imageSize(2) - N(2))/2)) = ...
+    hanningLocal(N(1))*hanningLocal(N(2))';
 % IcorrNorm = ifft2(abs(fft2(w2)).^2,'symmetric');
 for a0 = 1:length(sMerge.linearSearch)
     for a1 = 1:length(sMerge.linearSearch)
