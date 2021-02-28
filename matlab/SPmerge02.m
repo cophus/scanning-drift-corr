@@ -513,7 +513,7 @@ if flagPlot == 1
     
     
     % Plot results, image with scanline origins overlaid
-    figure(1)
+    figure('Name', 'Alignment')
     clf
     imagesc(imagePlot)
     hold on
@@ -550,7 +550,7 @@ if flagPlot == 1
     
     % Plot statistics
     if size(sMerge.stats,1) > 1
-        figure(2)
+        figure('Name','Convergance')
         clf
         plot(sMerge.stats(:,1),sMerge.stats(:,2)*100,'linewidth',2,'color','r')
         xlabel('Iteration [Step Number]')

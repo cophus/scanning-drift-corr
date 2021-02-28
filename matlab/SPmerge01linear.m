@@ -233,7 +233,7 @@ mask = dens>0.5;
 imagePlot = imagePlot - mean(imagePlot(mask));
 imagePlot = imagePlot / sqrt(mean(imagePlot(mask).^2));
 
-figure(1)
+figure('Name', 'Initial linear drift correction')
 clf
 imagesc(imagePlot)
 hold on

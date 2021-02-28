@@ -173,7 +173,7 @@ if (flagDownsampleOutput == true) && upsampleFactor > 1
 end
 
 
-figure(1)
+figure('Name','Reconstructed Image')
 clf
 imagesc(imageFinal)
 axis equal off
